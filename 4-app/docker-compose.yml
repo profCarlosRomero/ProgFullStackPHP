@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  pokecard_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pokecardApp
+    ports:
+      - "3500:80"
+    depends_on:
+      - database
+
+  database:
+    image: mariadb
+    container_name: pokecardBD
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pokecardsystem
+      MYSQL_USER: pokecard
+      MYSQL_PASSWORD: pokecard
+    ports:
+      - "33060:3306"
+    volumes:
+      - db-volume:/var/lib/mysql
+      - ./other/bd.sql:/docker-entrypoint-initdb.d/bd.sql
+
+volumes:
+  db-volume:
