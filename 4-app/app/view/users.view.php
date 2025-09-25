@@ -92,20 +92,22 @@
         const editCloseButton = document.getElementById('edit-close-button');
 
         document.querySelectorAll('#update-user-button').forEach(button => {
-            button.addEventListener('click', (e) => {
+            button.addEventListener('click', async (e) => {
                 e.preventDefault();
 
                 const ci = button.getAttribute('data-ci'); // atributo con el CI del usuario
-                // fetch(`index.php?ruta=user-getByCI&ci=${ci}`)
-                fetch(`index.php?ruta=user-select&ci=${ci}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        document.getElementById('editCi').value = data.ci;
-                        document.getElementById('editNombre').value = data.nombre;
-                        document.getElementById('editApellido').value = data.apellido;
-                        editModal.style.display = 'flex';
-                    })
-                    .catch(err => console.error(err));
+                
+                try {
+                    const res = await fetch(`index.php?ruta=user-select&ci=${ci}`);
+                    const data = await res.json();
+                    document.getElementById('editCi').value = data.ci;
+                    document.getElementById('editNombre').value = data.nombre;
+                    document.getElementById('editApellido').value = data.apellido;
+                    editModal.style.display = 'flex';
+                } catch (err) {
+                    console.error(err);
+                }
+                
             });
         });
 

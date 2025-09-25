@@ -7,10 +7,12 @@ header {
 
 .top-nav {
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
+    justify-content: flex-start;
+
     align-items: center;
     background-color: #004791;
-    padding: 10px 0;
+    padding: 10px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     /*position: sticky;  /* se pega al hacer scroll */
     /*top: 0;            /* al top de la página */

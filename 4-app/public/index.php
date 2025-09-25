@@ -1,7 +1,12 @@
 <?php
 
+session_start();
+
 require_once __DIR__ . '/../app/controller/UsuarioController.php';
 $usuarioController = new UsuarioController();
+
+require_once __DIR__ . '/../app/controller/AuthController.php';
+$authController = new AuthController();
 
 $ruta = $_GET['ruta'] ?? 'home';
 
@@ -11,6 +16,20 @@ switch ($ruta) {
         break;
 
     case 'login':
+        
+        if (isset($_SESSION['usuario'])) {
+            header('Location: index.php?ruta=tablero');
+        } else {
+            $authController->login();
+        }
+        break;
+
+    case 'logout':
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: index.php?ruta=tablero');
+        } else {
+            $authController->logout();
+        }
         break;
 
     case 'users':
@@ -35,7 +54,7 @@ switch ($ruta) {
         break;
 
     case 'tablero':
-        require_once __DIR__ . '/../app/view/tablero.view.html';
+        require_once __DIR__ . '/../app/view/tablero.view.php';
         break;
 
     default:

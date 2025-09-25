@@ -64,4 +64,14 @@ class Usuario {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getUserByUsername ($username) {
+        $this->pdo = Database::getInstancia()->getConexion();
+
+        $sentencia = "SELECT * FROM usuario WHERE user_name = ?";
+        $stmt = $this->pdo->prepare($sentencia);
+        $stmt->execute([$username]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
