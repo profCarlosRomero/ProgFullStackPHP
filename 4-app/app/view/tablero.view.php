@@ -10,67 +10,63 @@
 </head>
 
 <body>
-    <!-- <header>
-        <nav class="top-nav">
-            <a href="index.php" class="nav-icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home"></a>
-            <a href="#" class="nav-icon"><img src="https://cdn-icons-png.flaticon.com/512/31/31924.png" alt="Calendar"></a>
-            <a href="#" class="nav-icon"><img src="https://cdn-icons-png.flaticon.com/512/12/12711.png" alt="Bag"></a>
-            <a href="#" class="nav-icon"><img src="https://cdn-icons-png.flaticon.com/512/107/107796.png" alt="Heart"></a>
-        </nav>
-    </header> -->
     <?php include_once __DIR__ . '/partials/header.php'; ?>
 
     <main class="main-container">
         <div class="player-section">
-            <h2 class="player-name" id="player-1">Yenny</h2>
+            <h2 class="player-name" id="player-1"><?= $_SESSION['usuario1'] ?></h2>
+            <a href="index.php?ruta=logout&<?= $_SESSION['usuario1'] ?>" class="nav-icon">Logout</a>
             <div class="card-row">
-                <div class="card">
-                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" alt="Bulbasaur"
-                        class="card-image">
-                    <span class="card-name">Bulbasaur</span>
+                <div class="card" id="p1-pk-1">
+                    <img src="" alt="" class="card-image">
+                    <span class="card-name"></span>
                 </div>
-                <div class="card">
-                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" alt="Bulbasaur"
-                        class="card-image">
-                    <span class="card-name">Bulbasaur</span>
+                <div class="card" id="p1-pk-2">
+                    <img src="" alt="" class="card-image">
+                    <span class="card-name"></span>
                 </div>
-                <div class="card">
-                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" alt="Bulbasaur"
-                        class="card-image">
-                    <span class="card-name">Bulbasaur</span>
+                <div class="card" id="p1-pk-3">
+                    <img src="" alt="" class="card-image">
+                    <span class="card-name"></span>
                 </div>
             </div>
         </div>
 
-        <div class="game-board">
+        <div class="game-area">
+            <div class="game-board"></div>
+
+            <div id="play-stat" class="stat-indicator">Velocidad</div>
+            <form action="index.php?ruta=partida" method="post" id="partida">
+                <button type="submit">Siguiente</button>
+            </form>
         </div>
 
         <div class="player-section">
-            <!-- <h2 class="player-name">Omar</h2> -->
-            <h2 class="player-name" id="player-2"><?= $_SESSION['usuario'] ?></h2>
-            <a href="index.php?ruta=logout&<?= $_SESSION['usuario'] ?>" class="nav-icon">Logout</a>
+            <h2 class="player-name" id="player-2"><?= $_SESSION['usuario2'] ?></h2>
             <div class="card-row">
-                <div class="card">
-                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" alt="Bulbasaur"
-                        class="card-image">
-                    <span class="card-name">Bulbasaur</span>
+                <div class="card" id="p2-pk-1">
+                    <img src="" alt="" class="card-image">
+                    <span class="card-name"></span>
                 </div>
-                <div class="card">
-                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" alt="Bulbasaur"
-                        class="card-image">
-                    <span class="card-name">Bulbasaur</span>
+                <div class="card" id="p2-pk-2">
+                    <img src="" alt="" class="card-image">
+                    <span class="card-name"></span>
                 </div>
-                <div class="card">
-                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" alt="Bulbasaur"
-                        class="card-image">
-                    <span class="card-name">Bulbasaur</span>
+                <div class="card" id="p2-pk-3">
+                    <img src="" alt="" class="card-image">
+                    <span class="card-name"></span>
                 </div>
             </div>
         </div>
     </main>
     
+    <script>
+        const j1Name = "<?= $_SESSION['usuario1'] ?>";
+        const j2Name = "<?= $_SESSION['usuario2'] ?>";
+    </script>
     <script src="assets/js/tablero.js"></script>
-
+    <script src="assets/js/random-poke.js"></script>
+    
 </body>
 
 </html>

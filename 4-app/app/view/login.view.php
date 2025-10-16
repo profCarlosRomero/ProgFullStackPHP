@@ -17,7 +17,7 @@
     <main class="container">
         <h1 class="title">PokeCard</h1>
         <div class="form-info">
-            <h2 class="form-title">Jugador 1</h2>
+            <h2 class="form-title"><?= isset($_SESSION['usuario1']) ? "Jugador 2" : "Jugador 1" ?></h2>
             <p class="form-subtitle">Ingresa tu usuario y contraseña</p>
         </div>
         <form action="index.php?ruta=login" method="post" class="login-form">

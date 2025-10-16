@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("username").addEventListener("keypress", (e) => { 
         const regex = /^[a-zA-Z0-9]$/; // Solo letras y números (string de 1 solo caracter)
         if (!regex.test(e.key)) {
-                e.preventDefault();
+                e.preventDefault(); // Se consume el evento de la tecla presionada y por lo tanto no se escribe
             }
     });
 

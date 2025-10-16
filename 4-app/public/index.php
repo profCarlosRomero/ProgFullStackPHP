@@ -8,6 +8,9 @@ $usuarioController = new UsuarioController();
 require_once __DIR__ . '/../app/controller/AuthController.php';
 $authController = new AuthController();
 
+require_once __DIR__ . '/../app/controller/PartidaController.php';
+$partidaController = new PartidaController();
+
 $ruta = $_GET['ruta'] ?? 'home';
 
 switch ($ruta) {
@@ -17,7 +20,7 @@ switch ($ruta) {
 
     case 'login':
         
-        if (isset($_SESSION['usuario'])) {
+        if (isset($_SESSION['usuario1']) && isset($_SESSION['usuario2'])) {
             header('Location: index.php?ruta=tablero');
         } else {
             $authController->login();
@@ -33,7 +36,6 @@ switch ($ruta) {
         break;
 
     case 'users':
-        // require_once __DIR__ . '/../app/view/users.view.php';
         $usuarioController->listAll();
         break;
 
@@ -54,7 +56,14 @@ switch ($ruta) {
         break;
 
     case 'tablero':
+
+        //$partidaController = new PartidaController($_SESSION['usuario1'], $_SESSION['usuario2']);
+        
         require_once __DIR__ . '/../app/view/tablero.view.php';
+        break;
+
+    case 'partida':
+        $partidaController->save();
         break;
 
     default:

@@ -35,8 +35,14 @@ class AuthController {
             $usuario = (new Usuario())->getUserByUsername($username);
 
             if (!empty($usuario) && ($pass === $usuario['pass'])) {
-                $_SESSION['usuario'] = $usuario['user_name'];
-                header('Location: index.php?ruta=tablero');
+
+                if (isset($_SESSION['usuario1'])) {
+                    $_SESSION['usuario2'] = $usuario['user_name'];
+                    header('Location: index.php?ruta=tablero');
+                } else {
+                    $_SESSION['usuario1'] = $usuario['user_name'];
+                    header('Location: index.php?ruta=login');
+                }
                 exit;
             } else {
                 $mensaje = 'Usuario o contraseña incorrectos.';
