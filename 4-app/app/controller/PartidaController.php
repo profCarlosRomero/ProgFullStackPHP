@@ -1,8 +1,8 @@
 <?php
 
-// require_once __DIR__ . '/../model/Partida.php';
+require_once __DIR__ . '/../model/Partida.php';
 // require_once __DIR__ . '/../model/PokeCard.php';
-require_once __DIR__ . '/../controller/PokeCardController.php';
+// require_once __DIR__ . '/../controller/PokeCardController.php';
 require_once __DIR__ . '/../model/Usuario.php';
 
 class PartidaController {
@@ -19,15 +19,6 @@ class PartidaController {
     // }
     public function __construct() {
         
-    }
-
-    public function fillPokes() {
-        $pokeCardController = new PokeCardController();
-        for ($i=0; $i < 3; $i++) {
-
-            $this->pokesJ1[] = ($pokeCardController->getPokeApi())->toArray();
-            $this->pokesJ2[] = ($pokeCardController->getPokeApi())->toArray();
-        }
     }
 
     public function getJugador1() {
