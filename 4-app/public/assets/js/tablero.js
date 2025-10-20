@@ -1,5 +1,6 @@
 let idPokePlay1 = 0;
 let idPokePlay2 = 0;
+let turno = 1;
 
 document.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll(".card");
@@ -64,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // Posicionamiento centrado solo si viene del jugador de arriba (top)
-        // if (data.player === "player-1") {
         if (String(data.idpkmn).includes("p1")) {
             newCard.style.position = "absolute";
             newCard.style.top = "10px"; // margen desde arriba
@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
             playJ1 = true;
         }
 
-        // if (data.player === "player-2") {
         if (String(data.idpkmn).includes("p2")) {
             newCard.style.position = "absolute";
             newCard.style.bottom = "10px"; // margen
@@ -90,11 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if(newCard.id === "player-1") {
                 idPokePlay1 = parseInt(String(data.idpkmn).at(String(data.idpkmn).length - 1)) - 1; // Obtengo el id del pokemon jugado
-                j1_poke[idPokePlay1].turno++;
+                j1_poke[idPokePlay1].turno = turno;
             }
             if(newCard.id === "player-2") {
                 idPokePlay2 = parseInt(String(data.idpkmn).at(String(data.idpkmn).length - 1)) - 1; // Obtengo el id del pokemon jugado
-                j2_poke[idPokePlay2].turno++;
+                j2_poke[idPokePlay2].turno = turno;
             }
         }
 
@@ -105,8 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let stat = randomStat();
 
-    let contTurno = 1;
-    document.getElementById("partida").addEventListener("submit", (e) => {
+    document.getElementById("partida").addEventListener("submit", async (e) => {
         e.preventDefault();
 
         let statPokeJ1;
@@ -122,16 +120,25 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         
+        let ganador;
         if (statPokeJ1 > statPokeJ2) {
             alert("Ganó jugador 1");
+            ganador = j1Name;
         } else if(statPokeJ1 < statPokeJ2) {
             alert("Ganó jugador 2");
+            ganador = j2Name;
         } else {
             alert("Empate");
+            ganador = 0;
         }
+        console.log(j1Name, j1_poke[idPokePlay1], turno, ganador);
+        await sendGame(j1Name, j1_poke[idPokePlay1], turno, ganador);
 
-        sendGame(j1Name, j1_poke);
-        // sendGame(j2Name, j2_poke);
+        console.log(j2Name, j2_poke[idPokePlay2], turno, ganador);
+        await sendGame(j2Name, j2_poke[idPokePlay2], turno, ganador);
+
+        gameBoard.replaceChildren();
+        turno++;
     })
 });
 
@@ -142,17 +149,18 @@ function randomStat() {
     return document.getElementById("play-stat").textContent = stats.splice(num, 1).toString();
 }
 
-async function sendGame(jugador, pokes) {
+async function sendGame(jugador, pokes, turno, ganador) {
     const formData = new FormData();
-    formData.append("idPartida", 1);
     formData.append("jugador", jugador);
-    formData.append("equipo", JSON.stringify(pokes));
+    formData.append("turno", turno);
+    formData.append("ganador", ganador);
+    formData.append("pokes", JSON.stringify(pokes));
 
     const response = await fetch("index.php?ruta=partida", {
         method: "POST",
         body: formData
     });
-
-    const data = await response.json();
-    console.log(data);
+    
+    const text = await response.text();
+    console.log(text);
 }

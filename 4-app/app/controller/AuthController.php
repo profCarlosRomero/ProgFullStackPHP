@@ -38,9 +38,12 @@ class AuthController {
 
                 if (isset($_SESSION['usuario1'])) {
                     $_SESSION['usuario2'] = $usuario['user_name'];
+                    $_SESSION['usuario2CI'] = $usuario['ci'];
+
                     header('Location: index.php?ruta=tablero');
                 } else {
                     $_SESSION['usuario1'] = $usuario['user_name'];
+                    $_SESSION['usuario1CI'] = $usuario['ci'];
                     header('Location: index.php?ruta=login');
                 }
                 exit;

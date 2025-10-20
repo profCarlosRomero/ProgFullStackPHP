@@ -21,17 +21,17 @@ CREATE TABLE IF NOT EXISTS partida (
 CREATE TABLE IF NOT EXISTS partidaUsuario (
     id INT NOT NULL,
     ci VARCHAR(10) NOT NULL,
-    PRIMARY KEY (id, ci)
-    -- FOREIGN KEY (id) REFERENCES partida(id),
-    -- FOREIGN KEY (ci) REFERENCES usuario(ci)
+    PRIMARY KEY (id, ci),
+    FOREIGN KEY (id) REFERENCES partida(id),
+    FOREIGN KEY (ci) REFERENCES usuario(ci)
 );
 
 CREATE TABLE IF NOT EXISTS partidaUsuarioCard (
     id INT NOT NULL,
     ci VARCHAR(10) NOT NULL,
     turno INT NOT NULL,
+    ganador VARCHAR(10) NOT NULL,
     pokemon JSON,
-    PRIMARY KEY (id, ci, turno)
-    -- FOREIGN KEY (id) REFERENCES partida(id),
-    -- FOREIGN KEY (ci) REFERENCES usuario(ci)
+    PRIMARY KEY (id, ci, turno),
+    FOREIGN KEY (id, ci) REFERENCES partidaUsuario(id, ci)
 );
